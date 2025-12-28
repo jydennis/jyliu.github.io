@@ -1,0 +1,7 @@
+{
+  "name": "Personal Portfolio & Research Hub",
+  "description": "A high-end personal website framework featuring WebGPU animations, a photo gallery, and an AI-enhanced research display.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
