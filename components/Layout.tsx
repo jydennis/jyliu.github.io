@@ -12,7 +12,7 @@ const Layout: React.FC<LayoutProps> = ({ children, currentView, onViewChange }) 
   const navItems: { label: string; view: View }[] = [
     { label: 'Home', view: 'home' },
     { label: 'Photos', view: 'photos' },
-    { label: 'Research', view: 'research' },
+    { label: 'Projects', view: 'projects' },
     { label: 'About', view: 'about' },
   ];
 
@@ -31,7 +31,7 @@ const Layout: React.FC<LayoutProps> = ({ children, currentView, onViewChange }) 
               key={item.view}
               onClick={() => onViewChange(item.view)}
               className={`text-sm uppercase tracking-widest transition-all ${
-                currentView === item.view ? 'text-blue-400 font-bold' : 'text-gray-400 hover:text-white'
+                (currentView === item.view || (item.view === 'projects' && currentView === 'project-detail')) ? 'text-blue-400 font-bold' : 'text-gray-400 hover:text-white'
               }`}
             >
               {item.label}

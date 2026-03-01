@@ -5,9 +5,10 @@ export interface Photo {
   title: string;
   description: string;
   category: string;
+  projectId?: string;
 }
 
-export interface ResearchPaper {
+export interface Project {
   id: string;
   title: string;
   authors: string[];
@@ -17,4 +18,4 @@ export interface ResearchPaper {
   link?: string;
 }
 
-export type View = 'home' | 'photos' | 'research' | 'about';
+export type View = 'home' | 'photos' | 'projects' | 'about' | 'project-detail';

@@ -2,7 +2,11 @@
 import React from 'react';
 import WebGPUCanvas from './WebGPUCanvas';
 
-const HomeView: React.FC = () => {
+interface HomeViewProps {
+  onProjectSelect: (id: string) => void;
+}
+
+const HomeView: React.FC<HomeViewProps> = ({ onProjectSelect }) => {
   return (
     <div className="relative w-full min-h-[calc(100vh-80px)] flex flex-col items-center justify-center overflow-hidden">
       {/* Background WebGPU Animation */}
@@ -29,10 +33,16 @@ const HomeView: React.FC = () => {
         </p>
         
         <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 pt-8">
-          <button className="w-full sm:w-auto px-10 py-4 bg-white text-black font-bold rounded-full hover:bg-blue-400 transition-all transform hover:scale-105 active:scale-95">
+          <button 
+            onClick={() => onProjectSelect('placeholder-1')}
+            className="w-full sm:w-auto px-10 py-4 bg-white text-black font-bold rounded-full hover:bg-blue-400 transition-all transform hover:scale-105 active:scale-95"
+          >
             View Work
           </button>
-          <button className="w-full sm:w-auto px-10 py-4 glass rounded-full hover:bg-white/10 transition-all border border-white/20">
+          <button 
+            onClick={() => onProjectSelect('placeholder-2')}
+            className="w-full sm:w-auto px-10 py-4 glass rounded-full hover:bg-white/10 transition-all border border-white/20"
+          >
             Read Research
           </button>
         </div>

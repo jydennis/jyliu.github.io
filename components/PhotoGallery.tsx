@@ -2,15 +2,20 @@
 import React, { useState } from 'react';
 import { Photo } from '../types';
 
+interface PhotoGalleryProps {
+  onProjectSelect: (id: string) => void;
+}
+
 const MOCK_PHOTOS: Photo[] = Array.from({ length: 12 }).map((_, i) => ({
   id: `placeholder-${i}`,
   url: '', // Empty URL to trigger placeholder state
   title: `Project Title ${i + 1}`,
   description: 'Generic placeholder description for project documentation and visual assets.',
-  category: i % 3 === 0 ? 'Research' : i % 2 === 0 ? 'Architecture' : 'Abstract'
+  category: i % 3 === 0 ? 'Research' : i % 2 === 0 ? 'Architecture' : 'Abstract',
+  projectId: i % 4 === 0 ? 'placeholder-1' : i % 5 === 0 ? 'placeholder-2' : undefined
 }));
 
-const PhotoGallery: React.FC = () => {
+const PhotoGallery: React.FC<PhotoGalleryProps> = ({ onProjectSelect }) => {
   const [filter, setFilter] = useState('All');
   const categories = ['All', 'Research', 'Architecture', 'Abstract'];
 
@@ -65,7 +70,17 @@ const PhotoGallery: React.FC = () => {
               <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                 <span className="text-[9px] mono text-blue-400 mb-2 block uppercase tracking-[0.2em]">{photo.category}</span>
                 <h3 className="text-2xl font-bold text-white mb-2">{photo.title}</h3>
-                <p className="text-sm text-gray-400 line-clamp-2 max-w-xs">{photo.description}</p>
+                <p className="text-sm text-gray-400 line-clamp-2 max-w-xs mb-4">{photo.description}</p>
+                
+                {photo.projectId && (
+                  <button 
+                    onClick={() => onProjectSelect(photo.projectId!)}
+                    className="text-[10px] font-bold uppercase tracking-widest text-white flex items-center space-x-2 hover:text-blue-400 transition-colors"
+                  >
+                    <span>View Project</span>
+                    <span className="text-xs">→</span>
+                  </button>
+                )}
               </div>
             </div>
           </div>

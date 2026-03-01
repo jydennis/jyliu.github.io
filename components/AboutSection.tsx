@@ -36,7 +36,7 @@ const AboutSection: React.FC = () => {
         <div className="md:col-span-2 space-y-6">
           <h2 className="text-4xl font-extrabold tracking-tight">About Me</h2>
           <p className="text-gray-400 text-lg leading-relaxed">
-            I am a Integrated Circuits Engineer focus on GPU Architecture.
+            I am a Integrated Circuits Engineer focus on GPU Architecture. 
           </p>
           <p className="text-gray-400 text-lg leading-relaxed">
             Currently exploring WebGPU's potential for real-time generative art and 
@@ -61,10 +61,10 @@ const AboutSection: React.FC = () => {
                 Focus Areas
               </h4>
               <ul className="text-sm text-gray-500 space-y-2 font-mono">
-                <li>Generative Design</li>
+                <li>Generative World</li>
                 <li>GPU Computing</li>
                 <li>ML for Graphics</li>
-                <li>Procedural Worlds</li>
+                <li>3D Printing</li>
               </ul>
             </div>
           </div>
