@@ -1,12 +1,15 @@
 
 import React from 'react';
 import WebGPUCanvas from './WebGPUCanvas';
+import { useLanguage } from '../LanguageContext';
 
 interface HomeViewProps {
   onProjectSelect: (id: string) => void;
 }
 
 const HomeView: React.FC<HomeViewProps> = ({ onProjectSelect }) => {
+  const { t } = useLanguage();
+
   return (
     <div className="relative w-full min-h-[calc(100vh-80px)] flex flex-col items-center justify-center overflow-hidden">
       {/* Background WebGPU Animation */}
@@ -18,18 +21,18 @@ const HomeView: React.FC<HomeViewProps> = ({ onProjectSelect }) => {
       <div className="relative z-10 text-center px-6 max-w-4xl space-y-8 animate-in fade-in duration-1000">
         <div className="space-y-4">
           <h2 className="text-blue-400 font-mono text-sm tracking-[0.3em] uppercase">
-            Creative technologist
+            {t('hero_subtitle')}
           </h2>
           <h1 className="text-6xl lg:text-8xl font-extrabold tracking-tighter leading-tight">
-            Let creativity <br /> 
+            {t('hero_title_1')} <br /> 
             <span className="text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-white/40">
-              thrive.
+              {t('hero_title_2')}
             </span>
           </h1>
         </div>
         
         <p className="text-gray-300 text-lg lg:text-xl leading-relaxed max-w-2xl mx-auto font-light">
-          Unleash the hidden power of creativity by technology and more. 
+          {t('hero_description')}
         </p>
         
         <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 pt-8">
@@ -37,13 +40,13 @@ const HomeView: React.FC<HomeViewProps> = ({ onProjectSelect }) => {
             onClick={() => onProjectSelect('placeholder-1')}
             className="w-full sm:w-auto px-10 py-4 bg-white text-black font-bold rounded-full hover:bg-blue-400 transition-all transform hover:scale-105 active:scale-95"
           >
-            View Work
+            {t('btn_view_work')}
           </button>
           <button 
             onClick={() => onProjectSelect('placeholder-2')}
             className="w-full sm:w-auto px-10 py-4 glass rounded-full hover:bg-white/10 transition-all border border-white/20"
           >
-            Read Research
+            {t('btn_read_research')}
           </button>
         </div>
       </div>

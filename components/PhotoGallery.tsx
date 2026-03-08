@@ -1,23 +1,25 @@
 
 import React, { useState } from 'react';
 import { Photo } from '../types';
+import { useLanguage } from '../LanguageContext';
 
 interface PhotoGalleryProps {
   onProjectSelect: (id: string) => void;
 }
 
-const MOCK_PHOTOS: Photo[] = Array.from({ length: 12 }).map((_, i) => ({
-  id: `placeholder-${i}`,
-  url: '', // Empty URL to trigger placeholder state
-  title: `Project Title ${i + 1}`,
-  description: 'Generic placeholder description for project documentation and visual assets.',
-  category: i % 3 === 0 ? 'Research' : i % 2 === 0 ? 'Architecture' : 'Abstract',
-  projectId: i % 4 === 0 ? 'placeholder-1' : i % 5 === 0 ? 'placeholder-2' : undefined
-}));
-
 const PhotoGallery: React.FC<PhotoGalleryProps> = ({ onProjectSelect }) => {
+  const { t } = useLanguage();
   const [filter, setFilter] = useState('All');
   const categories = ['All', 'Research', 'Architecture', 'Abstract'];
+
+  const MOCK_PHOTOS: Photo[] = Array.from({ length: 12 }).map((_, i) => ({
+    id: `placeholder-${i}`,
+    url: '', // Empty URL to trigger placeholder state
+    title: `${t('nav_projects')} ${i + 1}`,
+    description: t('photos_subtitle'),
+    category: i % 3 === 0 ? 'Research' : i % 2 === 0 ? 'Architecture' : 'Abstract',
+    projectId: i % 4 === 0 ? 'placeholder-1' : i % 5 === 0 ? 'placeholder-2' : undefined
+  }));
 
   const filteredPhotos = filter === 'All' 
     ? MOCK_PHOTOS 
@@ -27,8 +29,8 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({ onProjectSelect }) => {
     <div className="px-6 lg:px-20 py-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 border-b border-white/5 pb-8">
         <div>
-          <h2 className="text-4xl font-bold tracking-tight mb-2">Portfolio Gallery</h2>
-          <p className="text-gray-400 max-w-md">This section is a placeholder for your visual work and project documentation.</p>
+          <h2 className="text-4xl font-bold tracking-tight mb-2">{t('photos_title')}</h2>
+          <p className="text-gray-400 max-w-md">{t('photos_subtitle')}</p>
         </div>
         <div className="flex space-x-2">
           {categories.map(cat => (
@@ -77,7 +79,7 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({ onProjectSelect }) => {
                     onClick={() => onProjectSelect(photo.projectId!)}
                     className="text-[10px] font-bold uppercase tracking-widest text-white flex items-center space-x-2 hover:text-blue-400 transition-colors"
                   >
-                    <span>View Project</span>
+                    <span>{t('btn_view_project')}</span>
                     <span className="text-xs">→</span>
                   </button>
                 )}
@@ -88,7 +90,7 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({ onProjectSelect }) => {
       </div>
       
       <div className="mt-16 flex flex-col items-center justify-center text-center p-12 border-2 border-dashed border-white/5 rounded-3xl">
-         <p className="text-gray-500 text-sm italic font-light">"Capturing the evolution of integrated systems and visual research."</p>
+         <p className="text-gray-500 text-sm italic font-light">{t('photos_quote')}</p>
          <div className="mt-4 flex space-x-2">
             <div className="w-1 h-1 bg-white/10 rounded-full"></div>
             <div className="w-1 h-1 bg-white/10 rounded-full"></div>

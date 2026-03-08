@@ -3,12 +3,14 @@ import React, { useState } from 'react';
 import { Project } from '../types';
 import { GoogleGenAI } from "@google/genai";
 import { PROJECTS } from '../constants';
+import { useLanguage } from '../LanguageContext';
 
 interface ProjectSectionProps {
   onProjectSelect: (id: string) => void;
 }
 
 const ProjectSection: React.FC<ProjectSectionProps> = ({ onProjectSelect }) => {
+  const { t, resolveTranslation } = useLanguage();
   const [summary, setSummary] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState<string | null>(null);
 
@@ -19,7 +21,7 @@ const ProjectSection: React.FC<ProjectSectionProps> = ({ onProjectSelect }) => {
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       const response = await ai.models.generateContent({
         model: 'gemini-3-flash-preview',
-        contents: `Summarize this project abstract in two clear sentences for a general audience: ${project.abstract}`,
+        contents: `Summarize this project abstract in two clear sentences for a general audience: ${resolveTranslation(project.abstract)}`,
       });
       
       setSummary(prev => ({ ...prev, [project.id]: response.text || "No summary available." }));
@@ -34,10 +36,9 @@ const ProjectSection: React.FC<ProjectSectionProps> = ({ onProjectSelect }) => {
   return (
     <div className="px-6 lg:px-20 py-12 max-w-5xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div className="mb-12 border-b border-white/5 pb-8">
-        <h2 className="text-4xl font-bold tracking-tight mb-4">Projects & Works</h2>
+        <h2 className="text-4xl font-bold tracking-tight mb-4">{t('projects_title')}</h2>
         <p className="text-gray-400 max-w-2xl">
-          This section showcases my personal and professional projects. 
-          From research initiatives to software development, explore the details of each endeavor.
+          {t('projects_subtitle')}
         </p>
       </div>
 
@@ -57,16 +58,16 @@ const ProjectSection: React.FC<ProjectSectionProps> = ({ onProjectSelect }) => {
             </div>
             
             <h3 className="text-2xl font-bold mb-3 text-gray-300 group-hover:text-white transition-colors">
-              {project.title}
+              {resolveTranslation(project.title)}
             </h3>
             
             <p className="text-sm text-blue-500/70 font-medium mb-4 mono uppercase tracking-wider">
-              {project.authors.join(', ')} <span className="mx-2 text-gray-700">•</span> {project.date}
+              {project.authors.join(', ')} <span className="mx-2 text-gray-700">•</span> {resolveTranslation(project.date)}
             </p>
             
             <div className="relative">
               <p className="text-gray-500 leading-relaxed mb-8 italic relative z-10">
-                "{project.abstract}"
+                "{resolveTranslation(project.abstract)}"
               </p>
             </div>
             
@@ -76,10 +77,10 @@ const ProjectSection: React.FC<ProjectSectionProps> = ({ onProjectSelect }) => {
                 disabled={loading === project.id}
                 className="px-5 py-2 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-blue-500/20 transition-all disabled:opacity-50"
               >
-                {loading === project.id ? 'Analyzing...' : 'AI Summary'}
+                {loading === project.id ? t('btn_analyzing') : t('btn_ai_summary')}
               </button>
               <button className="px-5 py-2 glass rounded-full text-xs font-bold uppercase tracking-widest hover:bg-white/10 transition-all border border-white/10 text-gray-400 hover:text-white">
-                View Repository
+                {t('btn_view_repo')}
               </button>
             </div>
 
@@ -87,7 +88,7 @@ const ProjectSection: React.FC<ProjectSectionProps> = ({ onProjectSelect }) => {
               <div className="mt-6 p-5 bg-blue-500/5 rounded-xl border border-blue-500/10 text-sm text-gray-300 animate-in fade-in zoom-in-95 duration-500">
                 <div className="flex items-center space-x-2 mb-2">
                   <div className="w-1 h-1 bg-blue-400 rounded-full animate-pulse"></div>
-                  <span className="font-bold text-[10px] text-blue-400 uppercase tracking-widest">Gemini Insight</span>
+                  <span className="font-bold text-[10px] text-blue-400 uppercase tracking-widest">{t('gemini_insight')}</span>
                 </div>
                 {summary[project.id]}
               </div>
@@ -100,8 +101,8 @@ const ProjectSection: React.FC<ProjectSectionProps> = ({ onProjectSelect }) => {
             <span className="text-2xl text-gray-600">+</span>
           </div>
           <div className="max-w-xs">
-            <h4 className="text-sm font-bold text-gray-400 uppercase tracking-widest">Future Projects</h4>
-            <p className="text-xs text-gray-500 mt-2">More projects will be added as they progress through the pipeline.</p>
+            <h4 className="text-sm font-bold text-gray-400 uppercase tracking-widest">{t('future_projects')}</h4>
+            <p className="text-xs text-gray-500 mt-2">{t('future_projects_desc')}</p>
           </div>
         </div>
       </div>
